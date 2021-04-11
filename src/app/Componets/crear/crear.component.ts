@@ -10,7 +10,8 @@ import { FormBuilder,Validators } from '@angular/forms';
   styleUrls: ['./crear.component.css']
 })
 export class CrearComponent implements OnInit {
-
+  public total = 0;
+  public canasta = [];
   public formSubmitted = false;
   public datostotal : any;
   public ProductosFormulario = this.fb.group({
@@ -29,6 +30,28 @@ export class CrearComponent implements OnInit {
   ngOnInit(): void {
     
   }
+  ProductoCanasta(id,nombre,precio){
+    let bandera = false
+    for(let i = 0; i < this.canasta.length ; i++){
+      if(this.canasta[i].id == id){
+        bandera = true;
+      }
+    }
+    if(bandera == false){
+      this.canasta.push({id,nombre,precio})
+    }
+    let totalNum = 0;
+    this.canasta.forEach(element => {
+      totalNum += element.precio;
+    });
+    this.total = totalNum;
+    
+  }
+  VaciarCanasta (){
+    this.total = 0;
+    this.canasta.length=0;
+  }
+
    postearFormulario(){
     this.formSubmitted = true;
     if(this.ProductosFormulario.invalid){
@@ -36,6 +59,9 @@ export class CrearComponent implements OnInit {
     }
     this.datosservice.crearProducto(this.ProductosFormulario.value).subscribe();
     console.log(this.ProductosFormulario.value);
+    this.ProductosFormulario.reset();
+    this.formSubmitted = false;
+    this.obtenerProductosTotal();
   } 
   campoNoValido( campo: string ) : boolean {
     if ( this.ProductosFormulario.get(campo)?.invalid && this.formSubmitted ){
