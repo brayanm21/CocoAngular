@@ -35,10 +35,13 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form>
+          <form
+          [formGroup] = "ProductosFormulario"
+          (submit) = "postearFormulario()"
+          >
             <!-- titulo input -->
             <div class="form-outline mb-4">
-              <input type="text" id="titulo" class="form-control" required>
+              <input type="text" id="titulo" class="form-control" required formControlName="Titulo"> 
               <label class="form-label" for="form1Example1" style="margin-left: 0px;">Titulo</label>
             <div class="form-notch">
               <div class="form-notch-leading" style="width: 9px;"></div>
@@ -47,7 +50,7 @@
             </div></div>
             <!-- Descripcion input -->
             <div class="form-outline mb-4">
-              <textarea class="form-control" id="Descripcion" rows="4" style="margin-top: 0px; margin-bottom: 0px; height: 114px;" required></textarea>
+              <textarea class="form-control" id="Descripcion" rows="4" style="margin-top: 0px; margin-bottom: 0px; height: 114px;" required formControlName="Descripcion"></textarea>
               <label class="form-label" for="Descripcion" style="margin-left: 0px;">Descripcion</label>
             <div class="form-notch">
               <div class="form-notch-leading" style="width: 9px;"></div>
@@ -56,7 +59,7 @@
             </div></div>
             <!-- precio input -->
             <div class="form-outline mb-4">
-              <input type="number" id="precio" class="form-control" required>
+              <input type="number" id="precio" class="form-control" required formControlName="Precio">
               <label class="form-label" for="precio" style="margin-left: 0px;">precio</label>
             <div class="form-notch">
               <div class="form-notch-leading" style="width: 9px;"></div>
@@ -65,7 +68,7 @@
             </div></div>
             <!-- titulo input -->
             <div class="form-outline mb-4">
-              <input type="number" id="descuento" class="form-control" min="0" max="100" required>
+              <input type="number" id="descuento" class="form-control" min="0" max="100" required formControlName="Descuento">
               <label class="form-label" for="descuento" style="margin-left: 0px;">Descuento</label>
             <div class="form-notch">
               <div class="form-notch-leading" style="width: 9px;"></div>
@@ -74,13 +77,29 @@
             </div></div>  
             <!-- titulo input -->
             <div class="form-outline mb-4">
-              <input type="number" id="descuento" class="form-control" min="0" max="31" required>
+              <input type="number" id="Diasdescuento" class="form-control" min="0" max="31" required formControlName="Diasdescuento">
               <label class="form-label" for="DiasDescuento" style="margin-left: 0px;">Numero de dias de descuento</label>
             <div class="form-notch">
               <div class="form-notch-leading" style="width: 9px;"></div>
               <div class="form-notch-middle" style="width: 88.8px;"></div>
               <div class="form-notch-trailing"></div>
-            </div></div>          
+            </div></div>
+            <!--Alerts-->
+            <div *ngIf="campoNoValido('Titulo')" class="alert alert-warning alert-dismissible fade show" role="alert" tabindex="-1">
+              <strong>ERROR!</strong> Debes completar el titulo
+            </div> 
+            <div *ngIf="campoNoValido('Descripcion')" class="alert alert-warning alert-dismissible fade show" role="alert" tabindex="-1">
+              <strong>ERROR!</strong> Debes completar la descripcion
+            </div> 
+            <div *ngIf="campoNoValido('Precio')" class="alert alert-warning alert-dismissible fade show" role="alert" tabindex="-1">
+              <strong>ERROR!</strong> Debes completar el precio
+            </div>
+            <div *ngIf="campoNoValido('Descuento')" class="alert alert-warning alert-dismissible fade show" role="alert" tabindex="-1">
+              <strong>ERROR!</strong> Debes completar el descuento / rango de descuentos (0-100)
+            </div>
+            <div *ngIf="campoNoValido('Diasdescuento')" class="alert alert-warning alert-dismissible fade show" role="alert" tabindex="-1">
+              <strong>ERROR!</strong> Debes completar el numero de dias de descuento / rango de dias (0-31)
+            </div>        
             <!-- Submit button -->
             <button type="submit" class="btn btn-primary btn-block">Enviar</button>
           </form>
@@ -108,10 +127,7 @@
   <button type="button" class="btn btn-primary ripple-surface" id="stacking-trigger-example">
     Show notification
   </button>
-  <div class="alert alert-warning alert-dismissible fade show" role="alert" tabindex="-1">
-    <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
+  
 <table class="table align-middle">
     <thead>
       <tr>

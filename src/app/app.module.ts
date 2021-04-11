@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { CrearComponent } from './Componets/crear/crear.component';
 import {HttpClientModule} from '@angular/common/http';
 import {DatosService} from './services/datos.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import {DatosService} from './services/datos.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
    
   ],
   providers: [DatosService],
